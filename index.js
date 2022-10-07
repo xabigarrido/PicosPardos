@@ -54,6 +54,9 @@ app.use("/api/cajaActual", cajaActualRuta);
 app.use("/api/Cajasfinales", cajasFinalesRuta);
 app.use("/api/tikada", tikadaRuta);
 app.use("/api/notification", notificationRuta);
+app.use("/", ()=>{
+    res.send("Prueba numero 4")
+})
 
 server.listen(process.env.PORT || 4000, () => {
     console.log("👌👌 Servidor en puerto: " + process.env.PORT || 4000);
