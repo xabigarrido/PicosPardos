@@ -169,7 +169,7 @@ ruta.get("/", async (req, res) => {
 
 ruta.get("/idMesa/:id", async (req, res) => {
   try {
-    const data = await Mesa.find({_id: req.params.id});
+    const data = await Mesa.find({ _id: req.params.id });
     res.status(200).json(data);
   } catch (error) {
     console.log(error);
@@ -194,15 +194,17 @@ ruta.post(
     });
     const ordenMesa = await Mesa.find();
     if (req.body.numeroMesa == 0)
-      return res.status(400).json({msg: "La mesa 0 no se puede crear"});
+      return res.status(400).json({ msg: "La mesa 0 no se puede crear" });
     if (data.length > 0)
-      return res.status(400).json({msg: "El numero de mesa ya existe en esa zona"});
+      return res
+        .status(400)
+        .json({ msg: "El numero de mesa ya existe en esa zona" });
     const newMesa = new Mesa({
       ...req.body,
       habilitarMesa: true,
       mesaAbierta: false,
       status: false,
-      gestion: "null",
+      sinPagarComandas: 0,
       cuenta: 0,
       mesaAbiertaPor: "Xabi",
       orden: ordenMesa.length,
@@ -212,5 +214,30 @@ ruta.post(
     res.json(newMesa);
   }
 );
+
+ruta.put("/addComandasMesa", async (req, res) => {
+  try {
+    const dataMesa = await Mesa.findById(req.body.idMesa);
+    const data = await Mesa.findByIdAndUpdate(req.body.idMesa, {
+      sinPagarComandas: dataMesa.sinPagarComandas + req.body.cantidad,
+    });
+    res.send("ok");
+  } catch (error) {
+    return console.log(error);
+  }
+});
+
+ruta.put("/deleteComandasMesa", async (req, res) => {
+  try {
+    console.log(req.body)
+    const dataMesa = await Mesa.findById(req.body.idMesa);
+    await Mesa.findByIdAndUpdate(req.body.idMesa, {
+      sinPagarComandas: dataMesa.sinPagarComandas - req.body.cantidad,
+    });
+    res.send("ok");
+  } catch (error) {
+    return console.log(error);
+  }
+});
 
 export default ruta;

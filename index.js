@@ -10,6 +10,7 @@ import mesaRuta from "./routes/mesaRuta.js";
 import zonaRuta from "./routes/zonaRuta.js";
 import comandasRuta from "./routes/comandasRuta.js";
 import cajaActualRuta from "./routes/cajaActualRuta.js";
+import cajasFinalesRuta from "./routes/CajasFinalesRuta.js";
 import tikadaRuta from './routes/tikadaEmpleadoRuta.js'
 import notificationRuta from './routes/notificationRuta.js'
 import cors from 'cors'
@@ -50,6 +51,7 @@ app.use("/api/mesas", mesaRuta);
 app.use("/api/zonas", zonaRuta);
 app.use("/api/comandas", comandasRuta);
 app.use("/api/cajaActual", cajaActualRuta);
+app.use("/api/Cajasfinales", cajasFinalesRuta);
 app.use("/api/tikada", tikadaRuta);
 app.use("/api/notification", notificationRuta);
 

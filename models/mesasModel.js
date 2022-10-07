@@ -6,7 +6,7 @@ const schemaMesa = new mongoose.Schema({
     habilitarMesa: Boolean, // Para auto-pedir
     mesaAbierta: Boolean, //  new uuid?id??? true, vacio false
     status: Boolean,
-    gestion: String,
+    sinPagarComandas: Number,
     cuenta: Number,
     mesaAbiertaPor: String,
     orden: Number,

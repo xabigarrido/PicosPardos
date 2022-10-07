@@ -39,29 +39,35 @@ ruta.post(
   ],
   validationResultMid,
   async (req, res) => {
-    const { dni, email } = req.body;
+try {
+  const { dni, email } = req.body;
 
-    const data = await Empleado.find({ $or: [{ dni }, { email }] });
-    if (data.length > 0) return res.json([{ msg: "El usuario ya existe" }]);
-    const newEmpleado = new Empleado({
-      ...req.body,
-      dni: dni.toLowerCase(),
-      email: email.toLowerCase(),
-      foto: "fotoDefault.png",
-      habilitarNotificaciones: false,
-      tokenNotificacion: "null",
-      totalCopas: 0,
-      totalBotellas: 0,
-      totalChampagne: 0,
-      conectado: false,
-      tikado: false,
-      rango: "empleado",
-      habilitadoUser: true,
-      diaCreado: new Date(),
-    });
-    const token = jwt.sign({ id: newEmpleado.id }, "123");
-    await newEmpleado.save();
-    return res.json({ token });
+  const data = await Empleado.find({ $or: [{ dni }, { email }] });
+  if (data.length > 0) return res.json([{ msg: "El usuario ya existe" }]);
+  const newEmpleado = new Empleado({
+    ...req.body,
+    dni: dni.toLowerCase(),
+    email: email.toLowerCase(),
+    foto: "fotoDefault.png",
+    habilitarNotificaciones: false,
+    tokenNotificacion: "null",
+    totalCopas: 0,
+    totalBotellas: 0,
+    totalChampagne: 0,
+    conectado: false,
+    tikado: false,
+    habilitadoUser: true,
+    diaCreado: new Date(),
+  });
+  const token = jwt.sign({ id: newEmpleado.id }, "123");
+  await newEmpleado.save();
+  return res.json({ token });
+} catch (error) {
+  console.log(error.code)
+  if(error && error.code === 11000){
+    return res.json({msg: 'El usuario ya existe'})
+  }
+}
   }
 );
 
