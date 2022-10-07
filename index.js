@@ -54,7 +54,7 @@ app.use("/api/cajaActual", cajaActualRuta);
 app.use("/api/Cajasfinales", cajasFinalesRuta);
 app.use("/api/tikada", tikadaRuta);
 app.use("/api/notification", notificationRuta);
-app.use("/", ()=>{
+app.use("/", (req, res)=>{
     res.send("Prueba numero 4")
 })
 
