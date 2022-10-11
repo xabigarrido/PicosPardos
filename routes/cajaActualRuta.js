@@ -2,6 +2,9 @@ import { Router } from "express";
 import CajaActual from "../models/cajaActualModel.js";
 import CajaFinal from "../models/cajaFinalesModel.js";
 import moment from 'moment'
+import mongoose from 'mongoose'
+// import {connectDb} from '../database/database.js'
+// connectDb();
 const ruta = Router();
 ruta.get("/", async (req, res) => {
   const data = await CajaActual.find();
@@ -65,6 +68,7 @@ ruta.post("/cerrarCaja", async (req, res) => {
   });
   await newCajafinal.save()
   await CajaActual.findByIdAndDelete(data[0]._id)
+  await mongoose.connection.collection('comandas').drop()
   return res.send("Caja cerrada");
 });
 

@@ -33,8 +33,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 io.on("connection", (socket) => {
-    console.log('Socket desde web real:' + socket.id)
+    socket.on('cliente:actualizarComandas', ()=>{
+        io.emit('servidor:actualizarComandas')
 
+    })
 //   socket.on("prueba", (data) => {
 //     console.log(data);
 //     io.emit("suma");
