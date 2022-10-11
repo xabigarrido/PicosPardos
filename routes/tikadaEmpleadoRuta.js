@@ -17,7 +17,13 @@ ruta.put("/salida/:id", async (req, res) => {
     });
     if (getTikada.length > 0) {
       getTikada[0].estado = "cerrada";
-      getTikada[0].salida = moment().format("DD/MM/YYYY HH:mm:ss");
+      getTikada[0].salida = moment().unix(),
+      getTikada[0].salidaHumana = moment().format("DD/MM/YYYY HH:mm:ss");
+      getTikada[0].horas = moment().diff(moment.unix(getTikada[0].entrada), "h");
+      getTikada[0].minutos = moment().diff(moment.unix(getTikada[0].entrada), "m");
+      getTikada[0].segundos = moment().diff(moment.unix(getTikada[0].entrada), "s");
+      getTikada[0].totalTrabajado = `${getTikada[0].horas}:${getTikada[0].minutos}:${getTikada[0].segundos}`
+
 
       const fin = await Tikada.findByIdAndUpdate(getTikada[0].id, getTikada[0]);
       return res.send("Actualizado");
@@ -28,5 +34,15 @@ ruta.put("/salida/:id", async (req, res) => {
     console.log(error);
   }
 });
+
+ruta.get("/empleado/:id", async(req, res)=>{
+  try {
+    console.log(req.params.id)
+    const data = await Tikada.find({idEmpleado: req.params.id, estado: "cerrada"})
+    res.json(data)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 export default ruta;
