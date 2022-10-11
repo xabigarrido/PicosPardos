@@ -15,13 +15,13 @@ ruta.post("/addToken", async (req, res) => {
   try {
     if (req.body.token != "") {
       const tokenFound = await Notification.find({ token: req.body.token });
-      console.log(tokenFound.length);
+      // console.log(tokenFound.length);
       if (tokenFound.length == 0) {
         const newToken = new Notification(req.body);
         await newToken.save();
         return res.send("Agregado");
       } else {
-        console.log("Ya existe el pushToken");
+        // console.log("Ya existe el pushToken");
         res.send("Ya existe");
       }
       return;

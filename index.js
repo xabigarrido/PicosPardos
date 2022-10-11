@@ -33,7 +33,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 io.on("connection", (socket) => {
-    console.log('??' + socket.id)
+    console.log('Socket desde web real:' + socket.id)
 
 //   socket.on("prueba", (data) => {
 //     console.log(data);
