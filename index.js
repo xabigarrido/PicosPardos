@@ -64,6 +64,6 @@ app.use("/", (req, res)=>{
 
 server.listen(process.env.PORT || 4000, () => {
     console.log("👌👌 Servidor en puerto: " + process.env.PORT || 4000);
-    console.log( moment().format("DD/MM/YYYY HH:mm:ss"))
+    console.log( "Fecha servidor: 👀" + moment().format("DD/MM/YYYY HH:mm:ss"))
   });
   
