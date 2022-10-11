@@ -35,6 +35,7 @@ app.use(express.json());
 io.on("connection", (socket) => {
     socket.on('cliente:actualizarComandas', ()=>{
         io.emit('servidor:actualizarComandas')
+        console.log('first')
 
     })
 //   socket.on("prueba", (data) => {
