@@ -1,8 +1,10 @@
 import { Router } from "express";
 import CajaActual from "../models/cajaActualModel.js";
 import CajaFinal from "../models/cajaFinalesModel.js";
-import moment from 'moment'
-import mongoose from 'mongoose'
+import moment from "moment";
+import mongoose from "mongoose";
+import Empleado from "../models/empleadosModel.js";
+import Mesas from "../models/mesasModel.js";
 // import {connectDb} from '../database/database.js'
 // connectDb();
 const ruta = Router();
@@ -11,14 +13,21 @@ ruta.get("/", async (req, res) => {
   res.json(data);
 });
 ruta.post("/add", async (req, res) => {
+
   try {
-    const newCaja = new CajaActual({
-      abiertaPor: req.body.abiertaPor,
-      dineroCaja: 0,
-      fecha: Date.now(),
-    });
-    await newCaja.save();
-    return res.send("Abierta");
+    const data = await CajaActual.find();
+    console.log('Cajas:'+data.length)
+    if(data.length === 0){
+      const newCaja = new CajaActual({
+        abiertaPor: req.body.abiertaPor,
+        dineroCaja: 0,
+        fecha: Date.now(),
+      });
+      await newCaja.save();
+      return res.send("Abierta");
+    } else {
+      return res.send("error")
+    }
   } catch (error) {
     console.log(error);
   }
@@ -60,16 +69,29 @@ ruta.put("/addComandaIndi", async (req, res) => {
 });
 
 ruta.post("/cerrarCaja", async (req, res) => {
-  const data = await CajaActual.find();
-  const newCajafinal = new CajaFinal({
-    ...data[0]._doc,
-    cerradaPor: req.body.nombreCompleto,
-    fechaCerrada: moment()
-  });
-  await newCajafinal.save()
-  await CajaActual.findByIdAndDelete(data[0]._id)
-  await mongoose.connection.collection('comandas').drop()
-  return res.send("Caja cerrada");
+  try {
+    const data = await CajaActual.find();
+    if(data.length != 0){
+      const newCajafinal = new CajaFinal({
+        ...data[0]._doc,
+        cerradaPor: req.body.nombreCompleto,
+        fechaCerrada: moment(),
+      });
+      await newCajafinal.save();
+      await CajaActual.findByIdAndDelete(data[0]._id);
+      await mongoose.connection.collection("comandas").drop();
+      await Empleado.updateMany(
+        {},
+        { totalBotellasHoy: 0, totalCopasHoy: 0, totalChampagneHoy: 0 }
+      );
+      await Mesas.updateMany({}, { sinPagarComandas: 0 });
+      return res.send("Caja cerrada");
+    } else {
+      return res.send('Error')
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 export default ruta;

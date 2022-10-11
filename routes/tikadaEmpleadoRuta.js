@@ -5,14 +5,11 @@ const ruta = Router();
 
 ruta.post("/entrada", async (req, res) => {
   const newTikada = new Tikada(req.body);
-  newTikada.entrada = moment().format("DD/MM/YYYY HH:mm:ss");
   await newTikada.save();
-  console.log(newTikada);
   return res.send("ok");
 });
 
 ruta.put("/salida/:id", async (req, res) => {
-    console.log(req.body)
   try {
     const getTikada = await Tikada.find({
       idEmpleado: req.params.id,

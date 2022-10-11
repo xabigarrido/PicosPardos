@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import { Server as ServerSocket } from "socket.io";
 import morgan from "morgan";
+import moment from 'moment'
 import { connectDb } from "./database/database.js";
 import empleadosRuta from "./routes/empleadosRuta.js";
 import productsRuta from "./routes/productsRuta.js";
@@ -63,5 +64,6 @@ app.use("/", (req, res)=>{
 
 server.listen(process.env.PORT || 4000, () => {
     console.log("👌👌 Servidor en puerto: " + process.env.PORT || 4000);
+    console.log( moment().format("DD/MM/YYYY HH:mm:ss"))
   });
   

@@ -4,25 +4,30 @@ import Mesa from "../models/mesasModel.js";
 
 const ruta = Router();
 ruta.get("/", async (req, res) => {
-  const pal = [
-    "fanta-limon",
-    "fanta-limon",
-    "heineken",
-    "heineken",
-    "cocacola",
-    "fanta-limon",
-    "fanta-limon",
-    "fanta-limon",
-    "heineken",
-    "sprite",
-  ];
-  const resultado = {};
-  pal.forEach((el) => (resultado[el] = resultado[el] + 1 || 1));
-  const newArray = Object.entries(resultado);
-  const result = newArray.forEach((el) => {
-    console.log("El producto: " + el[0] + " se repite: " + el[1]);
-  });
-  res.send("ok");
+  // const pal = [
+  //   "fanta-limon",
+  //   "fanta-limon",
+  //   "heineken",
+  //   "heineken",
+  //   "cocacola",
+  //   "fanta-limon",
+  //   "fanta-limon",
+  //   "fanta-limon",
+  //   "heineken",
+  //   "sprite",
+  // ];
+  // const resultado = {};
+  // pal.forEach((el) => (resultado[el] = resultado[el] + 1 || 1));
+  // const newArray = Object.entries(resultado);
+  // const result = newArray.forEach((el) => {
+  //   console.log("El producto: " + el[0] + " se repite: " + el[1]);
+  // });
+  try {
+    const data = await Comanda.find();
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 // ruta.post("/add", async (req, res) => {
 //   try {
@@ -70,7 +75,17 @@ ruta.get("/", async (req, res) => {
 //     console.log(error);
 //   }
 // });
-
+ruta.put("/updatePagaIndi", async (req, res) => {
+  try {
+    await Comanda.updateMany(
+      { idMesa: req.body.id },
+      { $set: { "contenido.$[].pagadaIndiComanda": true } }
+    );
+    res.send("ok");
+  } catch (error) {
+    console.log(error);
+  }
+});
 ruta.post("/addComanda", async (req, res) => {
   try {
     const newComanda = new Comanda(req.body);

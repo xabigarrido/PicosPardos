@@ -5,6 +5,10 @@ const schemaTikada = new mongoose.Schema({
     estado: {type: String},
     entrada: {type: String},
     salida: {type: String},
+    entradaLongitude: {type: String},
+    entradaLatitude: {type: String},
+    salidaLongitude: {type: String},
+    salidaLatitude: {type: String},
     mes: {type: String},
     comentario: {type: String}
 });
