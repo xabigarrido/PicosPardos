@@ -59,7 +59,7 @@ app.use("/api/Cajasfinales", cajasFinalesRuta);
 app.use("/api/tikada", tikadaRuta);
 app.use("/api/notification", notificationRuta);
 app.use("/", (req, res)=>{
-    res.send("Prueba numero 4")
+    res.send(moment().format("DD/MM/YYYY HH:mm:ss"))
 })
 
 server.listen(process.env.PORT || 4000, () => {
