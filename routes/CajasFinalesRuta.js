@@ -5,7 +5,7 @@ import moment from "moment";
 const ruta = Router();
 ruta.get("/", async (req, res) => {
   try {
-    const data = await CajaFinal.find();
+    const data = await CajaFinal.find({}).sort({fechaCerrada: -1});
     return res.json(data);
   } catch (error) {
     console.log(error);
