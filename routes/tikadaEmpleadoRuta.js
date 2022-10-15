@@ -49,14 +49,21 @@ ruta.put("/salida/:id", async (req, res) => {
   }
 });
 
-ruta.get("/empleado/:id", async(req, res)=>{
+ruta.get("/empleado/:id/:mes/:year", async(req, res)=>{
   try {
-    console.log(req.params.id)
-    const data = await Tikada.find({idEmpleado: req.params.id, estado: "cerrada"})
+    console.log(req.params)
+    const data = await Tikada.find({idEmpleado: req.params.id, estado: "cerrada", mes: req.params.mes, año: req.params.year})
     res.json(data)
   } catch (error) {
     console.log(error)
   }
 })
-
+ruta.delete("/tikadaDelete/:id", async(req, res)=>{
+  try {
+    await Tikada.findByIdAndDelete(req.params.id)
+    res.send('eliminada')
+  } catch (error) {
+    console.log(error)
+  }
+})
 export default ruta;
