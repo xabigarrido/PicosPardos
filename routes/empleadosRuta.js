@@ -6,12 +6,21 @@ import validationResultMid from "../utils/validationResultMid.js";
 import jwt from "jsonwebtoken";
 import b from "bcryptjs";
 const ruta = Router();
-
-ruta.post(
+ruta.delete("/deleteEmpleado/:id", async (req, res)=>{
+  try {
+    const data = await Empleado.findByIdAndDelete(req.params.id)
+    console.log(data)
+    res.send('Eliminado')
+  } catch (error) {
+    console.log(error)
+  }
+})
+ruta.put(
   "/cambiarFoto/:id",
-  uploadMiddlewares.single("foto"),
+  uploadMiddlewares.single("image"),
   async (req, res) => {
     try {
+      console.log(req.file)
       await Empleado.findByIdAndUpdate(req.params.id, {
         foto: req.file.filename,
       });
@@ -28,8 +37,9 @@ ruta.post(
   [
     body("nombre", "Debes escribir un nombre").isLength({ min: 1 }),
     body("apellidos", "Debes escribir un apellido").isLength({ min: 1 }),
+    body("dni", "Debes escribir un DNI").isLength({ min: 1 }),
     body("email", "Debe ser un email valido").isEmail().normalizeEmail(),
-    body("password", "Debe tener mas de 6").isLength({ min: 6 }),
+    body("password", "La contraseña minimo 6 caracteres").isLength({ min: 6 }),
     body("password").custom((value, { req }) => {
       if (value !== req.body.repassword) {
         throw new Error("Las contraseñas no coinciden");
@@ -40,6 +50,7 @@ ruta.post(
   validationResultMid,
   async (req, res) => {
     try {
+      console.log(req.body)
       const { dni, email } = req.body;
 
       const data = await Empleado.find({ $or: [{ dni }, { email }] });
@@ -68,7 +79,7 @@ ruta.post(
     } catch (error) {
       console.log(error.code);
       if (error && error.code === 11000) {
-        return res.json({ msg: "El usuario ya existe" });
+        return res.json([{ msg: "El usuario ya existe" }]);
       }
     }
   }
