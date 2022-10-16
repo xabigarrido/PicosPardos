@@ -66,4 +66,13 @@ ruta.delete("/tikadaDelete/:id", async(req, res)=>{
     console.log(error)
   }
 })
+
+ruta.get("/tikadaActual/:id", async (req, res) =>{
+try {
+  const data = await Tikada.find({idEmpleado: req.params.id, estado: "abierta"})
+  res.json(data[0])
+} catch (error) {
+  console.log(error)
+}
+})
 export default ruta;

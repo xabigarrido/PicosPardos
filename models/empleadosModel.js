@@ -6,6 +6,8 @@ const schemaEmpleado = new mongoose.Schema({
   apellidos: { type: String, required: true, trim: true },
   password: { type: String, required: true },
   dni: { type: String, required: true, trim: true, unique: true },
+  telefono: { type: String, required: true, trim: true},
+  cuentaBancaria: { type: String },
   foto: String,
   habilitarNotificaciones: Boolean,
   tokenNotificacion: { type: String },
