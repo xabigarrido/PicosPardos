@@ -61,7 +61,7 @@ app.use("/api/tikada", tikadaRuta);
 app.use("/api/notification", notificationRuta);
 app.use("/api/reservas", reservasRuta);
 app.use("/", (req, res)=>{
-    res.send("Actualizado")
+    res.send("Actuasslizado")
 })
 
 server.listen(process.env.PORT || 4000, () => {

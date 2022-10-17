@@ -38,6 +38,7 @@ ruta.post(
     body("nombre", "Debes escribir un nombre").isLength({ min: 1 }),
     body("apellidos", "Debes escribir un apellido").isLength({ min: 1 }),
     body("dni", "Debes escribir un DNI").isLength({ min: 1 }),
+    body("telefono", "Debes escribir un telefono").isLength({ min: 1 }),
     body("email", "Debe ser un email valido").isEmail().normalizeEmail(),
     body("password", "La contraseña minimo 6 caracteres").isLength({ min: 6 }),
     body("password").custom((value, { req }) => {
@@ -158,4 +159,42 @@ ruta.put("/updateCantidadComanda", async (req, res) => {
     console.log(error);
   }
 });
+
+ruta.put(
+  "/editarEmpleado/:id",
+  // [
+  //   body("nombre", "Debes escribir un nombre").isLength({ min: 1 }),
+  //   body("apellidos", "Debes escribir un apellido").isLength({ min: 1 }),
+  //   body("dni", "Debes escribir un DNI").isLength({ min: 1 }),
+  //   body("telefono", "Debes escribir un telefono").isLength({ min: 1 }),
+  //   body("cuentaBancaria", "Debes escribir una cuenta bancaria").isLength({ min: 1 }),
+  //   body("email", "Debe ser un email valido").isEmail().normalizeEmail(),
+  //   // body("password", "La contraseña minimo 6 caracteres").isLength({ min: 6 }),
+  //   // body("password").custom((value, { req }) => {
+  //   //   if (value !== req.body.repassword) {
+  //   //     throw new Error("Las contraseñas no coinciden");
+  //   //   }
+  //   //   return value;
+  //   // }),
+  // ],
+  // validationResultMid,
+  async (req, res) => {
+    try {
+      // const { dni, email } = req.body;
+
+      // const data = await Empleado.find({ $or: [{ dni }, { email }] });
+      // if (data.length > 0) return res.json([{ msg: "El usuario ya existe" }]);
+      console.log(req.body)
+      const query = await Empleado.findByIdAndUpdate(req.params.id, req.body.action)
+      res.send('Actualizado')
+      console.log('Actssu')
+
+    } catch (error) {
+      console.log(error.code);
+      if (error && error.code === 11000) {
+        return res.json([{ msg: "El usuario ya existe" }]);
+      }
+    }
+  }
+);
 export default ruta;
