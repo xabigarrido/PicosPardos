@@ -40,6 +40,21 @@ io.on("connection", (socket) => {
         console.log('first')
 
     })
+
+    socket.on('cliente:tikadaEntrada', (data)=>{
+        console.log(data)
+        socket.broadcast.emit('servidor:tikadaEntrada', data.user)
+    })
+
+    socket.on('cliente:tikadaSalida', (data)=>{
+        console.log(data)
+        socket.broadcast.emit('servidor:tikadaSalida', data.user)
+    })
+
+    socket.on('cliente:refresh', ()=>{
+        io.emit('servidor:refresh')
+    })
+
 //   socket.on("prueba", (data) => {
 //     console.log(data);
 //     io.emit("suma");
