@@ -20,10 +20,10 @@ ruta.put(
   uploadMiddlewares.single("image"),
   async (req, res) => {
     try {
-      console.log(req.file)
-      await Empleado.findByIdAndUpdate(req.params.id, {
+      const query = await Empleado.findByIdAndUpdate(req.params.id, {
         foto: req.file.filename,
       });
+      console.log(query)
       return res.send("Actualizado");
     } catch (error) {
       console.log(error);
@@ -184,10 +184,10 @@ ruta.put(
 
       // const data = await Empleado.find({ $or: [{ dni }, { email }] });
       // if (data.length > 0) return res.json([{ msg: "El usuario ya existe" }]);
-      console.log(req.body)
+      // console.log(req.body)
       const query = await Empleado.findByIdAndUpdate(req.params.id, req.body.action)
       res.send('Actualizado')
-      console.log('Actssu')
+      // console.log('Actssu')
 
     } catch (error) {
       console.log(error.code);
