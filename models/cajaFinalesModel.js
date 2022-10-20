@@ -6,6 +6,7 @@ const schemaCajasFinales = new mongoose.Schema({
     comandas: Array,
     dineroCaja: Number,
     fecha: Number,
+    empresa: String,
     fechaCerrada: Number
 })
 

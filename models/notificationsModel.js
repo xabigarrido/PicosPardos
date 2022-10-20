@@ -8,6 +8,7 @@ const schemaNotification = new mongoose.Schema({
     contenido: String,
     enviadoPor: String,
     habilitado: Boolean,
+    empresa: String,
 });
 
 export default mongoose.model('Notification', schemaNotification)

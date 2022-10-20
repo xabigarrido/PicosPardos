@@ -18,6 +18,7 @@ const schemaTikada = new mongoose.Schema({
     minutos: {type: String},
     segundos: {type: String},
     segundosMostrar: {type: String},
+    empresa: {type: String},
     comentario: {type: String},
 });
 

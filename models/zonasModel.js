@@ -6,6 +6,7 @@ const schemaZona = new mongoose.Schema({
     descripcion: String,
     habilitarZona: Boolean,
     orden: Number,
+    empresa: String,
     fecha: String
 })
 

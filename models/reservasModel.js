@@ -10,7 +10,8 @@ const schemaReservas = new mongoose.Schema({
     comentario: {type: String},
     diaDeLaReservaCreada: {type: String},
     reservaDia: {type: String},
-    nombreDeLaReserva: {type: String}
+    nombreDeLaReserva: {type: String},
+    empresa: {trype: String}
 });
 
 export default mongoose.model('Reserva', schemaReservas)

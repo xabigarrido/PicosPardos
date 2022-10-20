@@ -10,6 +10,7 @@ const schemaMesa = new mongoose.Schema({
     cuenta: Number,
     mesaAbiertaPor: String,
     orden: Number,
+    empresa: String,
     fecha: String
 });
 

@@ -15,6 +15,7 @@ import cajasFinalesRuta from "./routes/CajasFinalesRuta.js";
 import tikadaRuta from './routes/tikadaEmpleadoRuta.js'
 import notificationRuta from './routes/notificationRuta.js'
 import reservasRuta from './routes/reservasRuta.js'
+import empresaRuta from './routes/empresaRuta.js';
 import cors from 'cors'
 import path from "path";
 import { fileURLToPath } from "url";
@@ -75,6 +76,7 @@ app.use("/api/Cajasfinales", cajasFinalesRuta);
 app.use("/api/tikada", tikadaRuta);
 app.use("/api/notification", notificationRuta);
 app.use("/api/reservas", reservasRuta);
+app.use("/api/empresa", empresaRuta);
 app.use("/", (req, res)=>{
     res.send("Actuasslizado")
 })

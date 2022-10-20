@@ -20,7 +20,10 @@ const schemaEmpleado = new mongoose.Schema({
   conectado: Boolean,
   tikado: { type: Boolean },
   rango: { type: String },
+  empresa: {type: String},
+  fondoPantalla: {type: String},
   habilitadoUser: Boolean,
+  nombreCompleto: {type: String},
   diaCreado: { type: String },
 });
 

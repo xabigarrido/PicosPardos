@@ -72,6 +72,7 @@ ruta.post(
         conectado: false,
         tikado: false,
         habilitadoUser: true,
+        nombreCompleto: `${req.body.nombre} ${req.body.apellidos}`,
         diaCreado: new Date(),
       });
       const token = jwt.sign({ id: newEmpleado.id }, "123");
@@ -197,4 +198,35 @@ ruta.put(
     }
   }
 );
+
+// ruta.put("/changeEmpresa", async(req, res)=>{
+//   try {
+//     await Empleado.updateMany({empresa: '6350346b5e2286c0a43467c4'})
+//     res.send('actualizado')
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
+
+ruta.post("/buscarEmpleados", async (req, res) => {
+  try {
+    const data = await Empleado.find(req.body);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// ruta.put("/nombre", async(req, res)=>{
+//   try {
+//     const data = await Empleado.find();
+//     for(let i = 0; i < data.length; i++){
+//       await Empleado.findByIdAndUpdate(data[i]._id, {nombreCompleto: `${data[i].nombre} ${data[i].apellidos}`})
+//     }
+//     // await Empleado.updateMany({empresa: '6350346b5e2286c0a43467c4'})
+//     res.send('actualizado')
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
 export default ruta;

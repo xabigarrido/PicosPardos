@@ -4,6 +4,7 @@ const schemaCajaActual = new mongoose.Schema({
     abiertaPor: String,
     comandas: Array,
     dineroCaja: Number,
+    empresa: String,
     fecha: Number
 })
 
