@@ -32,4 +32,14 @@ const ruta = Router();
         console.log(error)
     }
  })
+
+ ruta.put("/editarEmpresa/:id", async(req,res)=>{
+    try {
+        console.log(req.body)
+    await Empresa.findByIdAndUpdate(req.params.id, req.body);
+    res.send('ok')
+    } catch (error) {
+        console.log(error)
+    }
+ })
 export default ruta;
