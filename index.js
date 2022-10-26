@@ -78,7 +78,7 @@ app.use("/api/notification", notificationRuta);
 app.use("/api/reservas", reservasRuta);
 app.use("/api/empresa", empresaRuta);
 app.use("/", (req, res)=>{
-    res.send("Epaa")
+    res.send("Vamos xcode")
 })
 
 server.listen(process.env.PORT || 4000, () => {
