@@ -11,7 +11,8 @@ const schemaReservas = new mongoose.Schema({
     diaDeLaReservaCreada: {type: String},
     reservaDia: {type: String},
     nombreDeLaReserva: {type: String},
-    empresa: {trype: String}
+    empresa: {type: String},
+    nombreEmpresa: {type: String},
 });
 
 export default mongoose.model('Reserva', schemaReservas)

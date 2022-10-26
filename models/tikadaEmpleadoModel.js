@@ -19,7 +19,9 @@ const schemaTikada = new mongoose.Schema({
     segundos: {type: String},
     segundosMostrar: {type: String},
     empresa: {type: String},
+    nombreEmpresa: {type: String},
     comentario: {type: String},
+    empleado: {type: Object}
 });
 
 export default mongoose.model('Tikada', schemaTikada);

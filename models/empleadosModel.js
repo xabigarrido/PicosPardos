@@ -25,6 +25,7 @@ const schemaEmpleado = new mongoose.Schema({
   habilitadoUser: Boolean,
   nombreCompleto: {type: String},
   diaCreado: { type: String },
+  nombreEmpresa: { type: String },
 });
 
 schemaEmpleado.pre("save", async function (next) {

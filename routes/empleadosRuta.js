@@ -116,8 +116,11 @@ ruta.put("/changeInfo/:id", async (req, res) => {
 ruta.post("/login", async (req, res) => {
   try {
     const email = req.body.email.toLowerCase();
-    const dni = req.body.email.toLowerCase();
-    const userFound = await Empleado.find({ $or: [{ email }, { dni }] });
+    const dni = req.body.email
+    console.log(dni)
+    const found = await Empleado.find({dni: req.body.email})
+    console.log(found)
+    const userFound = await Empleado.find({ $or: [{ dni }, { email }] });
 
     if (userFound.length == 0)
       return res.status(404).json([false, { message: "No existe el usuario" }]);
@@ -229,4 +232,20 @@ ruta.post("/buscarEmpleados", async (req, res) => {
 //     console.log(error)
 //   }
 // })
+
+ruta.put("/empresa", async(req, res)=>{
+  try {
+    const empleados = await Empleado.find();
+    console.log(empleados.length)
+    for(let i = 0; i< empleados.length; i++){
+      console.log(empleados[i])
+      // if(empleados[i].empresa == "635034ab5e2286c0a43467c8"){
+      //   await Empleado.findByIdAndUpdate(empleados[i]._id, {nombreEmpresa: 'Rosso'})
+      // }
+    }
+    res.send(empleados)
+  } catch (error) {
+    console.log(error)
+  }
+})
 export default ruta;
