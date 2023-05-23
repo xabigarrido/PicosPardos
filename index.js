@@ -63,6 +63,7 @@ io.on("connection", (socket) => {
 //   socket.on('delete', ()=>{
 //     io.emit('cliente:delete')
 //   })
+// ss
 });
 
 app.use("/api/empleados", empleadosRuta);
@@ -78,11 +79,11 @@ app.use("/api/notification", notificationRuta);
 app.use("/api/reservas", reservasRuta);
 app.use("/api/empresa", empresaRuta);
 app.use("/", (req, res)=>{
-    res.send("Vamos Ram")
+    res.send("Vamos 2023")
 })
 
 server.listen(process.env.PORT || 4000, () => {
-    console.log("👌👌 Servidor en el puerto: " + process.env.PORT || 4000);
+    console.log("👌👌 Servidor en el puertooo: " + process.env.PORT || 4000);
     console.log( "Fecha servidor: 👀" + moment().format("DD/MM/YYYY HH:mm:ss"))
   });
   
