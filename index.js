@@ -29,7 +29,7 @@ const io = new ServerSocket(server, {
     }
 });
 connectDb();
-app.use(express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'optimize')));
 
 app.use(cors());
 app.use(morgan("dev"));

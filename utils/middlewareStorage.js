@@ -11,7 +11,7 @@ const almacen = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const ext = file.originalname.split('.').pop();
-    const filename = `file-${Date.now()}.${ext}`
+    const filename = `file-${Date.now()}.jpg`
     cb(null, filename)
   },
 });
